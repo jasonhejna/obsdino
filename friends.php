@@ -3,17 +3,26 @@ include 'dbc.php';
 page_protect();
 
 if (isset($_SESSION['user_id'])) {
+	//$q = strtolower($_GET["q"]);  LIKE '%$q%'
+	$result2 = mysql_query("SELECT `full_name`, `profile_pic` FROM users WHERE `full_name` LIKE '%Jason%'");
+$data = array();
+$i = 0;
+while($row = mysql_fetch_array($result2)) {
+    $i += 1;
+    echo '<img src="data:image/jpeg;base64,' . base64_encode( $row['profile_pic'] ) . '" />';
+    //array_push($data, array($i) + $row);
+    //array_push($data, array($i) + $row);
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<title>Happy Data</title>
-<!-- <style type="text/css">
- #map { width: 150px; height: 150px; border: 0px; padding: 0px; }
- </style> -->
- <script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+<title>Mental State</title>
+<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
 <link rel="stylesheet" href="css/angrystyle.css" />
@@ -77,6 +86,7 @@ if (isset($_SESSION['user_id'])) {
 </div>
 <div class="grid_17">
 </div>
+</div> <!-- end 960 -->
 </body>
 </html>
 <?php } ?>
